@@ -5,21 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
-    <link rel="stylesheet" href="./screen1.css">
+    <link rel="stylesheet" href="./css/styles.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
   </head>
   <body>
     <main>
         <h1>Home</h1>  
-        <button class="button button1">Placeholder</button>
+        <button class="button button1">
+          <i class="fa-solid fa-microphone"></i>
+        </button>
         <h3>Tap to Record</h3>
         <h2>Commonly Used Phrases</h2>
-        <ul>
-          <li><a href="/frontend/screen1.html">Home</a></li>
-          <li><a href="/frontend/screen2.html">Search</a></li>
-          <li><a href="/frontend/screen3.html">Chat Logs</a></li>
-          <li><a href="/frontend/screen4.html">Chat View</a></li>
-        </ul>
+        <div class="sidebar">
+          <div class="logo-content">
+            <div class="logo">
+              <i class="fa-solid fa-comments"></i>
+              <div class="logo-name">Chat Manager</div>
+              <i class="fa-solid fa-bars" id="button"></i>
+            </div>
+            <ul class="navbar">
+              <li>
+                <a href="#">
+                  <i class="fa-solid fa-house"></i>
+                  <span class="links-name">Home</span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <span class="links-name">Search</span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa-solid fa-clipboard"></i>
+                  <span class="links-name">Chat Logs</span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa-solid fa-comments"></i>
+                  <span class="links-name">Chat View</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
     </main>
     <script src="index.js"></script>
   </body>

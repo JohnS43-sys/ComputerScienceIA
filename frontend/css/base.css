@@ -1,0 +1,19 @@
+/* base.css */
+:root {
+  --primary: #C9F0FF;
+  --text-dark: #303437;
+  --text-gray: #404446;
+  --bg-light: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-dark);
+  background: var(--bg-light);
+}

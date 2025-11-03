@@ -28,8 +28,9 @@ body {
 
 .logo-content .logo i {
   font-size: 28px;
-  margin-right: 5px;
-  color: #38bdf8;
+  margin-right: 10px;
+  margin-left: 1px;
+  color: #11101d;
 }
 
 .logo-content .logo-name {
@@ -74,8 +75,8 @@ body {
 }
 
 .sidebar ul li a:hover {
-  color: #38bdf8;
-  background-color: #e2e8f0;
+  color: #131414;
+  background-color:#ffffff;
 }
 
 .sidebar ul li a i {
@@ -89,5 +90,5 @@ body {
 }
 
 .sidebar ul li a:hover i {
-  color: #38bdf8;
+  filter: brightness(90%);
 }

@@ -16,6 +16,7 @@ body {
   justify-content: center;
   border-right: 1px solid #e2e8f0;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  z-index:100;
 }
 
 .sidebar .logo-content .logo {
@@ -75,8 +76,9 @@ body {
 }
 
 .sidebar ul li a:hover {
-  color: #131414;
-  background-color:#ffffff;
+  filter: brightness(90%); 
+  color: #11101d;
+  background-color: #e5e7eb;
 }
 
 .sidebar ul li a i {
@@ -92,3 +94,4 @@ body {
 .sidebar ul li a:hover i {
   filter: brightness(90%);
 }
+

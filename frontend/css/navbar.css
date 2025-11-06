@@ -95,3 +95,7 @@ body {
   filter: brightness(90%);
 }
 
+.sidebar ul li a.active {
+  background-color: #e5e7eb;
+}
+

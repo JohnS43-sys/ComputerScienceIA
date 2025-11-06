@@ -21,3 +21,11 @@
 .button1:hover {
   filter: brightness(90%);
 }
+
+.search-bar {
+  width: 600px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  background: #ECE6F0;
+}

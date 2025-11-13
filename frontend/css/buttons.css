@@ -22,10 +22,22 @@
   filter: brightness(90%);
 }
 
+.button2{
+  background-color: var(--primary);
+}
+
+.button2:hover {
+  filter: brightness(90%);
+}
+
 .search-bar {
   width: 600px;
   padding: 10px;
   font-size: 16px;
   border: 2px solid #ccc;
   background: #ECE6F0;
+  margin-right: 1.5%;
+}
+.search-bar:hover {
+  filter: brightness(90%);
 }

@@ -32,3 +32,13 @@
   align-items: center;     
   text-align: center;
 }
+
+.content-search-page{
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+  align-items: center;     
+  text-align: center;
+}

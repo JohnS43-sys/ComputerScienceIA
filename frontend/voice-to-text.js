@@ -1,10 +1,7 @@
-let lastTranscript = ''; 
 
 console.log("Recording started");
 const SpeechRecognition =
 window.SpeechRecognition || window.webkitSpeechRecognition;
-const SpeechRecognitionEvent =
-window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
 
 
 const recognition = new SpeechRecognition();
@@ -13,22 +10,23 @@ recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
-const button = document.querySelector('.button1');
+function startRecording(){
+  console.log('Ready to receive a voice command.');
+  recognition.start();
+} 
+    
 
-button.addEventListener('click', () => {
-    recognition.start();
-    console.log('Ready to receive a voice command.');
-});
 
 recognition.onresult = (event) => {
-  lastTranscript = event.results[0][0].transcript;
-  console.log("Heard: " + lastTranscript);
-  diagnostic.textContent = `Result received: ${lastTranscript}.`;
-  console.log(`Confidence: ${event.results[0][0].confidence}`);
+  const transcript = event.results[0][0].transcript;
+  console.log(transcript);
 };
 
 recognition.onspeechend = () => {
-    console.log("Recording stopped");
     recognition.stop();
-    console.log(lastTranscript)
+    console.log("Recording Stopped")
+};
+
+recognition.onerror = (event) => {
+    console.error("Speech recognition error:", event.error);
 };

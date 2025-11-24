@@ -5,6 +5,7 @@ window.SpeechRecognition || window.webkitSpeechRecognition;
 
 
 const recognition = new SpeechRecognition();
+const transcript = null;
 recognition.continuous = false;
 recognition.lang = 'en-US';
 recognition.interimResults = false;
@@ -20,6 +21,7 @@ function startRecording(){
 recognition.onresult = (event) => {
   const transcript = event.results[0][0].transcript;
   console.log(transcript);
+  document.getElementById("text-box").innerHTML = transcript;
 };
 
 recognition.onspeechend = () => {
@@ -29,4 +31,5 @@ recognition.onspeechend = () => {
 
 recognition.onerror = (event) => {
     console.error("Speech recognition error:", event.error);
-};
+}
+

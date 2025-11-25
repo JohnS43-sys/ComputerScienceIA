@@ -1,9 +1,13 @@
 import { createClient } from '@supabase/supabase-js'
-import 'dotenv/config'  
 
-// Create a single supabase client for interacting with your database
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY)
+export const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL, // replace with your Supabase project URL
+  import.meta.env.VITE_SUPABASE_ANON_KEY // replace with your Supabase anon key
+) 
 
-const { error } = await supabase
-  .from('conversations')
-  .insert({ id: 1, name: 'test' })
+
+export async function saveMessage(transcript) { 
+  const { data, error } = await supabase
+    .from('message')
+    .insert({ content: transcript })
+}

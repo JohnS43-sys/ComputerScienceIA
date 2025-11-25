@@ -1,36 +1,22 @@
-import { saveMessage } from '../src/backend/supabase.js';
 const SpeechRecognition =
-window.SpeechRecognition || window.webkitSpeechRecognition;
-window.startRecording = startRecording;
+  window.SpeechRecognition || window.webkitSpeechRecognition;
 
 const recognition = new SpeechRecognition();
-recognition.continuous = false;
-recognition.lang = 'en-US';
+recognition.lang = "en-US";
 recognition.interimResults = false;
-recognition.maxAlternatives = 1;
 
-function startRecording(){
-  console.log('Ready to receive a voice command.');
+function startRecording() {
   recognition.start();
-} 
-  
+}
 
+window.startRecording = startRecording;
 
 recognition.onresult = (event) => {
   const transcript = event.results[0][0].transcript;
-  console.log(transcript);
-  document.getElementById("text-box").innerHTML = transcript;
-  saveMessage(transcript);
+  document.getElementById("text-box").textContent = transcript;
+
+  // IMPORTANT — now this exists on window
+  window.saveMessage(transcript);
 };
 
-recognition.onspeechend = () => {
-    recognition.stop();
-    console.log("Recording Stopped")
-};
-
-recognition.onerror = (event) => {
-    console.error("Speech recognition error:", event.error);
-}
-
-
-
+recognition.onerror = (e) => console.error("Speech error:", e.error);

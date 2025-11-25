@@ -1,21 +1,19 @@
 import { saveMessage } from '../backend/supabase.js';
 const SpeechRecognition =
 window.SpeechRecognition || window.webkitSpeechRecognition;
-
+window.startRecording = startRecording;
 
 const recognition = new SpeechRecognition();
-const transcriptedText = null;
 recognition.continuous = false;
 recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
 function startRecording(){
-    console.log('Ready to receive a voice command.');
+  console.log('Ready to receive a voice command.');
   recognition.start();
 } 
-    
-window.startRecording = startRecording;
+  
 
 
 recognition.onresult = (event) => {

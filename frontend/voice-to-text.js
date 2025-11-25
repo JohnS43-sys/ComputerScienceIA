@@ -1,4 +1,4 @@
-import { saveMessage } from '../backend/supabase.js';
+import { saveMessage } from '../src/backend/supabase.js';
 const SpeechRecognition =
 window.SpeechRecognition || window.webkitSpeechRecognition;
 window.startRecording = startRecording;

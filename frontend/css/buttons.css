@@ -75,3 +75,70 @@
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   filter: brightness(93%);
 }
+
+.phrases-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.commonly-used-phrases {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 16px;
+}
+
+.commonly-used-phrase {
+  position: relative;
+  margin: 0;
+  font-size: 1.125rem;
+  border-radius: 0.6rem;
+  background-color: var(--primary);
+  padding: 0.9rem 2.75rem 0.9rem 1rem;   
+  cursor: pointer;
+  list-style-type: none;
+  text-align: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.commonly-used-phrase:hover {
+  transform: translateY(2px);
+  filter: brightness(90%);
+}
+
+.edit-btn,
+.delete-btn {
+  position: absolute;
+  top: 8px;
+  background: rgba(0,0,0,0.08);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0;                
+  transition: opacity 0.15s ease;
+}
+
+.commonly-used-phrase:hover .edit-btn,
+.commonly-used-phrase:hover .delete-btn {
+  opacity: 1;
+}
+
+.edit-btn:hover {
+  background: rgba(0,0,0,0.15);
+}
+
+.delete-btn:hover {
+  background: rgba(255,0,0,0.2);
+}
+
+.edit-btn {
+  right: 2.25rem; 
+}
+
+.delete-btn {
+  right: 0.5rem;   
+}

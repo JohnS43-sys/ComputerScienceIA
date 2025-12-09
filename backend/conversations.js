@@ -1,5 +1,7 @@
 function createConversation() {
   let conversationName = prompt("Please enter the conversation name", "");
+  document.getElementsByClassName("current-conversation")[0].textContent = "Current Conversation: " + conversationName;
+  
   if (!conversationName) return;
 
   supabaseClient

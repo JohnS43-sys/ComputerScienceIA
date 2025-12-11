@@ -67,17 +67,15 @@
         <h3>Tap to Record</h3>
         <h2>Commonly Used Phrases</h2>
         
+
+        <button class="add-phrase-btn" onclick="addNewPhrase()">Add New Phrase</button>
         
         <ul class="commonly-used-phrases" id="phraseList">
           <li class="commonly-used-phrase">
             <span class="phrase-text">Hello, how are you?</span>
-            <button class="edit-btn">✏️</button>
-            <button class="delete-btn">🗑️</button>
+            <button class="edit-btn" onclick="editShortcut(this)">✏️</button>
+            <button class="delete-btn" onclick="deleteShortcut(this)">🗑️</button>
           </li>
-
-
-
-
         </ul>
 
 
@@ -96,5 +94,6 @@
     <script src="../backend/supabase.js"></script>
     <script src="voice-to-text.js"></script>
     <script src="..//backend/conversations.js"></script>
+    <script src="./shortcut.js"></script>
   </body>
 </html>

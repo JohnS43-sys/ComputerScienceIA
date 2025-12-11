@@ -142,3 +142,15 @@
 .delete-btn {
   right: 0.5rem;   
 }
+
+.add-phrase-btn {
+  background-color: var(--primary);
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: background-color 0.2s ease;
+}

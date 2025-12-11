@@ -76,6 +76,34 @@
   filter: brightness(93%);
 }
 
+.load-conversation {
+  background: var(--primary);
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 18px 26px;
+  font-size: 18px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.load-conversation i {
+  font-size: 22px;
+}
+
+.load-conversation:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  filter: brightness(93%);
+}
+
+
 .phrases-wrapper {
   width: 100%;
   display: flex;
@@ -153,4 +181,10 @@
   cursor: pointer;
   margin-bottom: 12px;
   transition: background-color 0.2s ease;
+}
+
+.add-phrase-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  filter: brightness(93%);
 }

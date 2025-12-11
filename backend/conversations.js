@@ -29,3 +29,26 @@ function createConversation() {
 }
 
 window.createConversation = createConversation;
+
+
+function loadConversation() {
+  supabaseClient
+    .from("conversations")
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+    .then(({ data, error }) => {
+      console.log("LoadConversations() result:", data, error); 
+      if (error) {
+        console.error("Error loading conversations:", error);
+        return;
+      }
+
+      if(data) {
+      document.getElementsByClassName("current-conversation")[0].textContent = "Current Conversation: " + data.title;
+      console.log("Current conversation ID set to:", data.title);
+      }
+    });
+
+}

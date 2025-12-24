@@ -1,13 +1,15 @@
 function createConversation() {
-  let conversationName = prompt("Please enter the conversation name", "");
-  document.getElementsByClassName("current-conversation")[0].textContent = "Current Conversation: " + conversationName;
-  
+  const conversationName = prompt("Please enter the conversation name", "");
   if (!conversationName) return;
+
+  document.getElementsByClassName("current-conversation")[0].textContent =
+    "Current Conversation: " + conversationName;
 
   supabaseClient
     .from("conversations")
     .insert({ title: conversationName })
-    .select("*")   // <-- RETURNS THE ROW
+    .select("*")
+    .single()
     .then(({ data, error }) => {
       console.log("CreateConversation() result:", data, error);
 
@@ -16,13 +18,9 @@ function createConversation() {
         return;
       }
 
-      if (!data || data.length === 0) {
-        console.error("ERROR: No data returned. This means RLS or schema issue.");
-        return;
-      }
-
-      const conversation = data[0];
-      window.currentConversationId = conversation.id;
+      window.currentConversationId = data.id;
+      document.getElementsByClassName("current-conversation")[0].textContent =
+        "Current Conversation: " + data.title;
 
       console.log("Current conversation ID set to:", window.currentConversationId);
     });
@@ -30,46 +28,54 @@ function createConversation() {
 
 window.createConversation = createConversation;
 
-
 function loadConversation() {
   supabaseClient
     .from("conversations")
-    .select('*')
-    .order('created_at', { ascending: false })
+    .select("*")
+    .order("created_at", { ascending: false })
     .limit(1)
-    .maybeSingle()
+    .single()
     .then(({ data, error }) => {
-      console.log("LoadConversations() result:", data, error); 
+      console.log("LoadConversation() result:", data, error);
+
       if (error) {
         console.error("Error loading conversations:", error);
         return;
       }
 
-      if(data) {
-      document.getElementsByClassName("current-conversation")[0].textContent = "Current Conversation: " + data.title;
-      console.log("Current conversation ID set to:", data.title);
+      if (data) {
+        window.currentConversationId = data.id;
+        document.getElementsByClassName("current-conversation")[0].textContent =
+          "Current Conversation: " + data.title;
+
+        console.log("Current conversation ID set to:", window.currentConversationId);
       }
     });
-
 }
 
+window.onload = function() {
+  renderConversationList();
+}
 
-function renderConversationsList() {
-  supabaseClient
+async function renderConversationList() {
+  const { data, error } = await supabaseClient
     .from("conversations")
-    .select('*')
-    .order('created_at', { ascending: false })
-    .then(({ data, error }) => {
-      console.log("RenderConversationsList() result:", data, error); 
-      if (error) {
-        console.error("Error loading conversations:", error);
-        return;
-      }
-      const conversationsList = document.getElementById("conversationsList");
-      conversationsList.innerHTML = ""; // Clear existing list
+    .select("*")
+    .order("created_at", { ascending: false });
 
-      data.forEach(conversation => {
-        const listItem = document.createElement("li");
-        listItem.textContent = conversation.title;
-        conversationsList.appendChild(listItem);
-      }
+  if (error) {
+    console.error("Error fetching conversations:", error);
+    return;
+  } 
+
+  const conversationList = document.getElementById("conversation-list");
+  conversationList.innerHTML = "";  
+
+  data.forEach(conversation => {
+    const listItem = document.createElement("li");
+    listItem.textContent = conversation.title;
+    conversationList.appendChild(listItem);
+  });
+} 
+
+

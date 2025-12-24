@@ -52,3 +52,24 @@ function loadConversation() {
     });
 
 }
+
+
+function renderConversationsList() {
+  supabaseClient
+    .from("conversations")
+    .select('*')
+    .order('created_at', { ascending: false })
+    .then(({ data, error }) => {
+      console.log("RenderConversationsList() result:", data, error); 
+      if (error) {
+        console.error("Error loading conversations:", error);
+        return;
+      }
+      const conversationsList = document.getElementById("conversationsList");
+      conversationsList.innerHTML = ""; // Clear existing list
+
+      data.forEach(conversation => {
+        const listItem = document.createElement("li");
+        listItem.textContent = conversation.title;
+        conversationsList.appendChild(listItem);
+      }

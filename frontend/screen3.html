@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chat Logs</title>
+    <title>Chat View</title>
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   </head>
   <body>
     <main>
-      <!--Sidebar-->
+        <!--Sidebar-->
         <aside class="sidebar">
           <div class="logo-content">
             <div class="logo">
@@ -21,7 +21,7 @@
             </div>
             <ul class="navbar">
               <li>
-                <a href="./index.html" >
+                <a href="./index.html">
                   <i class="fa-solid fa-house"></i>
                   <span class="links-name">Home</span>
                 </a>
@@ -35,12 +35,6 @@
               <li>
                 <a href="./screen3.html">
                   <i class="fa-solid fa-clipboard"></i>
-                  <span class="links-name">Chat Logs</span>
-                </a>
-              </li>
-              <li>
-                <a href="./screen4.html">
-                  <i class="fa-solid fa-comments"></i>
                   <span class="links-name">Chat View</span>
                 </a>
               </li>
@@ -48,19 +42,6 @@
           </div>
       </aside>
     </main>
-
-
-    <div class="content">
-      <h1>Chat Logs</h1>
-      <div class="chat-logs-container">
-        <ul id="conversation-list">
-          
-        </ul>
-      </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="../backend/supabase.js"></script>
-    <script src="voice-to-text.js"></script>
-    <script src="..//backend/conversations.js"></script>
-    <script src="./shortcut.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

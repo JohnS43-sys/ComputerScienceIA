@@ -77,7 +77,7 @@ async function renderConversationList() {
     .select("*")
     .order("created_at", { ascending: false });
 
-  if (error) {
+  if (error) {  
     console.error("Error fetching conversations:", error);
     return;
   } 
@@ -90,9 +90,11 @@ async function renderConversationList() {
     listItem.className = "conversation-item";
     listItem.textContent = conversation.title;
     listItem.onclick = function() {
+      sessionStorage.setItem("currentConversationId", conversation.id);
+      sessionStorage.setItem("currentConversationTitle", conversation.title);
       window.location.href = "screen3.html";
-      window.loadMessagesFromConversation(conversation.id);
-    };
+  };
+
     conversationList.appendChild(listItem);
   });
 } 

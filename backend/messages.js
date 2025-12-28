@@ -1,21 +1,24 @@
+console.log("messages.js loaded");
+
 function loadMessagesFromConversation(conversationId) {
-  supabaseClient
+  console.log("✅ loadMessagesFromConversation() called with ID:", conversationId);
+
+  window.supabaseClient
     .from("messages")
     .select("*")
     .eq("conversation_id", conversationId)
     .order("created_at", { ascending: true })
     .then(({ data, error }) => {
-      console.log("loadMessagesFromConversation() result:", data, error);
+      console.log("✅ loadMessagesFromConversation() result:", data, error);
 
       if (error) {
         console.error("Error loading messages:", error);
         return;
       }
 
-        const messageList = document.getElementById("messages-list");
-
+      const messageList = document.getElementById("messages-list");
       if (!messageList) {
-        console.error("Missing message list element in HTML");
+        console.error("Missing #messages-list in screen3.html");
         return;
       }
 

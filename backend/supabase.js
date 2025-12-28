@@ -1,16 +1,23 @@
-  const supabaseClient = supabase.createClient('https://dghkbvyvwhcfavpggyxq.supabase.co', 'sb_publishable_Rkeis3BxPAqF3WEPkvCxHA_3TFCmZpn');
+// supabase setup (GLOBAL)
+window.supabaseClient = supabase.createClient(
+  "https://dghkbvyvwhcfavpggyxq.supabase.co",
+  "sb_publishable_Rkeis3BxPAqF3WEPkvCxHA_3TFCmZpn"
+);
 
-  function saveMessage(transcript) {
+function saveMessage(transcript) {
+  if (!window.currentConversationId) {
+    alert("No conversation selected!");
+    return;
+  }
 
-    if(!window.currentConversationId){
-      alert("No conversation selected!");
-      return;
-    }
-    supabaseClient
-      .from("messages")
-      .insert({ content: transcript, conversation_id: window.currentConversationId })
-      .then(({ error }) => {
-        if (error) console.error(error);
+  window.supabaseClient
+    .from("messages")
+    .insert({
+      content: transcript,
+      conversation_id: window.currentConversationId
+    })
+    .then(({ error }) => {
+      if (error) console.error(error);
     });
 }
 

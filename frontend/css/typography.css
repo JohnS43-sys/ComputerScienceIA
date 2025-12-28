@@ -41,3 +41,12 @@ h2 {
   color: var(--text-gray);
   font-size: 6rem;
 }
+
+
+
+.message-item {
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f90000;
+}

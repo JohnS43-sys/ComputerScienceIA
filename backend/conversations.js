@@ -19,6 +19,8 @@ function createConversation() {
       }
 
       window.currentConversationId = data.id;
+      sessionStorage.setItem("currentConversationId", data.id);
+      sessionStorage.setItem("currentConversationTitle", data.title);
       document.getElementsByClassName("current-conversation")[0].textContent =
         "Current Conversation: " + data.title;
 
@@ -45,15 +47,27 @@ function loadConversation() {
 
       if (data) {
         window.currentConversationId = data.id;
+        sessionStorage.setItem("currentConversationId", data.id);
+        sessionStorage.setItem("currentConversationTitle", data.title);
         document.getElementsByClassName("current-conversation")[0].textContent =
           "Current Conversation: " + data.title;
 
+        
         console.log("Current conversation ID set to:", window.currentConversationId);
       }
     });
 }
 
 window.onload = function() {
+  const savedConversationId = sessionStorage.getItem("currentConversationId");
+  const savedConversationTitle = sessionStorage.getItem("currentConversationTitle");
+  
+  if(savedConversationId) window.currentConversationId = savedConversationId;
+  if(savedConversationTitle && document.getElementsByClassName("current-conversation")[0]) {
+    document.getElementsByClassName("current-conversation")[0].textContent = "Current Conversation: " + savedConversationTitle;
+  }
+
+
   renderConversationList();
 }
 
@@ -73,7 +87,12 @@ async function renderConversationList() {
 
   data.forEach(conversation => {
     const listItem = document.createElement("li");
+    listItem.className = "conversation-item";
     listItem.textContent = conversation.title;
+    listItem.onclick = function() {
+      window.location.href = "screen3.html";
+      window.loadMessagesFromConversation(conversation.id);
+    };
     conversationList.appendChild(listItem);
   });
 } 

@@ -15,7 +15,6 @@
             <div class="logo">
               <i class="fa-solid fa-comments"></i>
               <div class="logo-name">Chat Manager</div>
-              <i class="fa-solid fa-bars" id="button"></i>
             </div>
             <ul class="navbar">
               <li>
@@ -52,7 +51,10 @@
     </main>
 
     <div class="content">
-      <h1>Chat Logs</h1>
+      <button class="create-conversation create-conversation--search" onclick="createConversation()">
+          <i class="fa-solid fa-plus"></i>
+          <span>New Conversation</span>
+          </button>
       <div class="chat-logs-container">
         <ul id="conversation-list">
           

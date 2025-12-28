@@ -46,7 +46,8 @@ h2 {
 
 .message-item {
   margin-bottom: 12px;
+  
   padding: 10px;
   border-radius: 8px;
-  background-color: #f90000;
+  background-color: var(--primary);
 }

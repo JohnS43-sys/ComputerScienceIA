@@ -34,3 +34,5 @@ function deleteShortcut(button) {
     const phraseElement = button.closest('.commonly-used-phrase');
     phraseElement.remove();  
 }
+
+

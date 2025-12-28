@@ -1,4 +1,3 @@
-// supabase setup (GLOBAL)
 window.supabaseClient = supabase.createClient(
   "https://dghkbvyvwhcfavpggyxq.supabase.co",
   "sb_publishable_Rkeis3BxPAqF3WEPkvCxHA_3TFCmZpn"
@@ -21,5 +20,4 @@ function saveMessage(transcript) {
     });
 }
 
-// make globally available
 window.saveMessage = saveMessage;

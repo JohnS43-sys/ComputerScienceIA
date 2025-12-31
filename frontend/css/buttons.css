@@ -278,3 +278,6 @@
   display: block;
   cursor: pointer;
 }
+
+.dropdown-conversation { position: relative; }
+

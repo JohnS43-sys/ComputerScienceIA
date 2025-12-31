@@ -18,11 +18,7 @@ function createConversation() {
         return;
       }
 
-      window.currentConversationId = data.id;
-      sessionStorage.setItem("currentConversationId", data.id);
-      sessionStorage.setItem("currentConversationTitle", data.title);
-      document.getElementsByClassName("current-conversation")[0].textContent =
-        "Current Conversation: " + data.title;
+      setCurrentConversation(data.id, data.title);
 
       console.log("Current conversation ID set to:", window.currentConversationId);
     });
@@ -30,7 +26,7 @@ function createConversation() {
 
 window.createConversation = createConversation;
 
-function loadConversation() {
+function loadRecentConversation() {
   supabaseClient
     .from("conversations")
     .select("*")
@@ -46,14 +42,7 @@ function loadConversation() {
       }
 
       if (data) {
-        window.currentConversationId = data.id;
-        sessionStorage.setItem("currentConversationId", data.id);
-        sessionStorage.setItem("currentConversationTitle", data.title);
-        document.getElementsByClassName("current-conversation")[0].textContent =
-          "Current Conversation: " + data.title;
-
-        
-        console.log("Current conversation ID set to:", window.currentConversationId);
+        setCurrentConversation(data.id, data.title);
       }
     });
 }
@@ -186,3 +175,40 @@ async function renderConversationList() {
     conversationList.appendChild(listItem);
   });
 } 
+
+window.onload = function() {
+  supabaseClient
+    .from("conversations")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .then(({ data, error }) => {
+      if (error) {
+        console.error("Error fetching conversations:", error);
+        return;
+      }
+      else{
+        const conversationList = document.getElementById("conversationList");
+        data.forEach(conversation => {
+          const listItem = document.createElement("li");
+          listItem.textContent = conversation.title;
+          listItem.onclick = function() {
+            setCurrentConversation(conversation.id, conversation.title);
+
+          };
+          conversationList.appendChild(listItem);
+        });
+      }
+});
+} 
+
+function setCurrentConversation(id, title) {
+  window.currentConversationId = id;
+  sessionStorage.setItem("currentConversationId", id);
+  sessionStorage.setItem("currentConversationTitle", title);
+
+  const el = document.getElementsByClassName("current-conversation")[0];
+  if (el) {
+    el.textContent = "Current Conversation: " + title;
+  }
+}
+

@@ -52,11 +52,21 @@
           <span>New Conversation</span>
           </button>
 
-          <button class="load-conversation" onclick="loadConversation()">
+          <button class="load-conversation" onclick="loadRecentConversation()">
           <i class="fa-solid fa-folder-open"></i>
-          <span>Load Conversation</span>
+          <span>Load Most Recent Conversation</span>
           </button>
+
+
+          <div class="dropdown-conversation">
+            <button class="dropdown-btn">Conversations</button>
+            <div class="dropdown-content">
+              <ul id="conversationList">
+              </ul>
+            </div>
           </div>
+        </div>
+
 
           <div>
             <h2 class="current-conversation">Current Conversation: None</h2>
@@ -65,6 +75,7 @@
           <button class="button button1" onclick="startRecording()">
           <i class="fa-solid fa-microphone"></i>
           </button>
+        
         <h3>Tap to Record</h3>
         <h2>Commonly Used Phrases</h2>
         

@@ -1,6 +1,3 @@
-// conversations.js
-// Assumes supabaseClient is defined globally in ../backend/supabase.js
-
 function setCurrentConversation(id, title) {
   window.currentConversationId = id;
   sessionStorage.setItem("currentConversationId", String(id));
@@ -33,7 +30,7 @@ function createConversation() {
       }
 
       setCurrentConversation(data.id, data.title);
-      renderConversationList(); // refresh list immediately
+      renderConversationList(); 
     });
 }
 
@@ -60,7 +57,6 @@ function loadRecentConversation() {
 
 window.loadRecentConversation = loadRecentConversation;
 
-// Pick whichever list exists on the current page (Home dropdown or Search list)
 function getConversationListElement() {
   return (
     document.getElementById("conversation-list") ||
@@ -92,7 +88,6 @@ async function renderConversationList() {
     listItem.className = "conversation-item";
     listItem.textContent = conversation.title;
 
-    // EDIT button
     const editButton = document.createElement("button");
     editButton.type = "button";
     editButton.className = "edit-btn";
@@ -117,7 +112,6 @@ async function renderConversationList() {
         return;
       }
 
-      // update UI + sessionStorage if current
       listItem.childNodes[0].nodeValue = trimmed;
       if (sessionStorage.getItem("currentConversationId") === String(conversation.id)) {
         sessionStorage.setItem("currentConversationTitle", trimmed);
@@ -126,7 +120,6 @@ async function renderConversationList() {
       }
     });
 
-    // DELETE button
     const deleteButton = document.createElement("button");
     deleteButton.type = "button";
     deleteButton.className = "delete-btn";
@@ -138,9 +131,8 @@ async function renderConversationList() {
 
       if (!confirm("Are you sure you want to delete this conversation?")) return;
 
-      const convId = conversation.id; // keep original type from DB
+      const convId = conversation.id;
 
-      // 1) delete messages first (avoid FK constraint)
       const { error: msgErr } = await supabaseClient
         .from("messages")
         .delete()
@@ -152,7 +144,6 @@ async function renderConversationList() {
         return;
       }
 
-      // 2) delete conversation
       const { error: convErr } = await supabaseClient
         .from("conversations")
         .delete()
@@ -166,7 +157,6 @@ async function renderConversationList() {
 
       listItem.remove();
 
-      // If user deleted the currently selected conversation, clear selection
       const currentId = sessionStorage.getItem("currentConversationId");
       if (String(currentId) === String(conversation.id)) {
         sessionStorage.removeItem("currentConversationId");
@@ -178,7 +168,6 @@ async function renderConversationList() {
       }
     });
 
-    // click item (go to chat view) — BUT ignore clicks on buttons
     listItem.addEventListener("click", (e) => {
       if (e.target.closest(".edit-btn") || e.target.closest(".delete-btn")) return;
 
@@ -195,7 +184,6 @@ async function renderConversationList() {
 
 window.renderConversationList = renderConversationList;
 
-// On page load: restore current conversation + render list
 document.addEventListener("DOMContentLoaded", () => {
   const savedId = sessionStorage.getItem("currentConversationId");
   const savedTitle = sessionStorage.getItem("currentConversationTitle");

@@ -195,3 +195,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderConversationList();
 });
+
+
+async function searchForConversation() {
+  const query = document.querySelector('.search-bar').value;
+  const conversationList = getConversationListElement();
+  if (!conversationList) {
+    console.warn("No conversation list element found on this page.");
+    return;
+  }
+  const { data, error } = await supabaseClient
+    .from("conversations")
+    .select("*")
+    .ilike("title", `%${query}%`)
+    .order("created_at", { ascending: false });
+  if (error) {
+    console.error("Error searching conversations:", error);
+    return;
+  } 
+  conversationList.innerHTML = "";
+  data.forEach((conversation) => {
+    const listItem = document.createElement("li");
+    listItem.className = "conversation-item";
+    listItem.textContent = conversation.title;
+    listItem.addEventListener("click", () => {
+      sessionStorage.setItem("currentConversationId", String(conversation.id));
+      sessionStorage.setItem("currentConversationTitle", conversation.title);
+      window.location.href = "screen3.html";
+    },);
+    conversationList.appendChild(listItem);
+  });
+
+  if (data.length === 0) {
+    const noResultsItem = document.createElement("li");
+    noResultsItem.className = "no-results";
+    noResultsItem.textContent = "No conversations found.";
+    noResultsItem.style.listStyleType = "none";
+    conversationList.appendChild(noResultsItem);
+  }
+}

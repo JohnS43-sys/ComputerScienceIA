@@ -314,3 +314,13 @@
 
 .dropdown-conversation { position: relative; }
 
+.export-chat {
+  background-color: var(--primary);
+  color: black;
+  border: none;
+  border-radius: 8px;
+  padding: auto;
+  font-size: 16px;
+
+}
+

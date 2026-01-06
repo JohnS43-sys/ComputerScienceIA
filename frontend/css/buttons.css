@@ -319,8 +319,8 @@
   color: black;
   border: none;
   border-radius: 8px;
-  padding: auto;
+  padding: 12px 20px;
   font-size: 16px;
-
+  cursor: pointer;
 }
 

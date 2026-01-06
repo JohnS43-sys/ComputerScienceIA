@@ -30,7 +30,7 @@
   flex-direction: column;
   justify-content: center; 
   align-items: center;     
-  text-align: center;
+  text-align: center; 
 }
 
 .content-search-page{
@@ -43,6 +43,17 @@
   text-align: center;
 }
 
+.content-message-page{
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  align-items: center;     
+  text-align: center; 
+  
+}
+
 .button-container {
   display: flex;
   justify-content: center;
@@ -53,10 +64,15 @@
 .chat-logs-container {
   width: 100%;
   max-width: 800px;
-  height: 500px;
+  height: min(500px, 60vh);
   overflow-y: auto;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;
   background-color: #f9f9f9;
+
+}
+
+.header-message-page {
+  display: flex;
 }

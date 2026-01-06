@@ -44,19 +44,22 @@
     </main>
 
 
-    <section class="content"> 
-      <h1 class="chat-text">Chat View</h1>
+    <section class="content-message-page">
+      <div class="header-message-page">
+        <h1 class="chat-text">Chat View</h1>
+        <button class="export-button" id="export-button">Export Chat Logs</button>
+      </div> 
+      
       <div class="chat-logs-container">
         <ul id="messages-list">
           
         </ul>
       </div>
 
-      <button class="export-chat" onclick="exportChatAsPDF()">
-          <i class="fa-solid fa-file-pdf">Export Chat as a PDF</i>
-      </button>
-      </section>
-      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+     
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="../backend/supabase.js"></script>
     <script src="../backend/messages.js"></script>
     <script src="../frontend/view-message.js"></script>

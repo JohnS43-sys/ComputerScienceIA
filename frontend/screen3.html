@@ -47,7 +47,10 @@
     <section class="content-message-page">
       <div class="header-message-page">
         <h1 class="chat-text">Chat View</h1>
-        <button class="export-button" id="export-button">Export Chat Logs</button>
+        <button id="export-button" onclick="exportToPDF()">Export Chat Logs 
+          <i class="fa-solid fa-file-export"></i>
+        </button>
+        
       </div> 
       
       <div class="chat-logs-container">
@@ -63,5 +66,6 @@
     <script src="../backend/supabase.js"></script>
     <script src="../backend/messages.js"></script>
     <script src="../frontend/view-message.js"></script>
+    <script src="../frontend/export-chat.js"></script>
   </body>
 </html>

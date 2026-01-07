@@ -314,13 +314,21 @@
 
 .dropdown-conversation { position: relative; }
 
-.export-chat {
+
+#export-button {
   background-color: var(--primary);
-  color: black;
   border: none;
-  border-radius: 8px;
+  color: black;
   padding: 12px 20px;
   font-size: 16px;
+  border-radius: 8px;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+#export-button:hover {
+  transform: translateY(-0.188rem);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  filter: brightness(93%);
+}

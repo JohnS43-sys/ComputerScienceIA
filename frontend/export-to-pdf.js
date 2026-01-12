@@ -1,3 +1,5 @@
 function exportToPDF() {
-    console.log("Export to PDF button clicked");    
+    const doc = new jspdf.jsPDF();
+    const messageElements = document.querySelectorAll('.message-content');
+    doc.save('conversation.pdf');
 }

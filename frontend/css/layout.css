@@ -28,9 +28,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
   align-items: center;     
   text-align: center; 
+  align-items: center;        
+  justify-content: flex-start;
 }
 
 .content-search-page{

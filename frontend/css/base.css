@@ -4,6 +4,7 @@
   --text-dark: #303437;
   --text-gray: #404446;
   --bg-light: #ffffff;
+  --sidebar-w: 15rem;
 }
 
 * {

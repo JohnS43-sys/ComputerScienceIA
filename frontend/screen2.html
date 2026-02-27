@@ -1,69 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Search</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
+
   <body>
-    <main>
-        <aside class="sidebar">
-          <div class="logo-content">
-            <div class="logo">
-              <i class="fa-solid fa-comments"></i>
-              <div class="logo-name">Chat Manager</div>
-            </div>
-            <ul class="navbar">
-              <li>
-                <a href="./index.html">
-                  <i class="fa-solid fa-house"></i>
-                  <span class="links-name">Home</span>
-                </a>
-              </li>
-              <li>
-                <a href="./screen2.html">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                  <span class="links-name">Search</span>
-                </a>
-              </li>
-              <li>
-                <a href="./screen3.html">
-                  <i class="fa-solid fa-clipboard"></i>
-                  <span class="links-name">Chat View</span>
-                </a>
-              </li>
-            </ul>
+    <main class="main-container">
+      <aside class="sidebar">
+        <div class="logo-content">
+          <div class="logo">
+            <i class="fa-solid fa-comments"></i>
+            <div class="logo-name">Chat Manager</div>
           </div>
+
+          <ul class="navbar">
+            <li>
+              <a href="./index.html">
+                <i class="fa-solid fa-house"></i>
+                <span class="links-name">Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="./screen2.html" class="active">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span class="links-name">Search</span>
+              </a>
+            </li>
+            <li>
+              <a href="./screen3.html">
+                <i class="fa-solid fa-clipboard"></i>
+                <span class="links-name">Chat View</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </aside>
 
-      <!--Main Content-->
-      
-      <section class="content-search-page"> 
-        <h1 class="search-text">Search</h1>  
-        <input type="text" class="search-bar" placeholder="Search chats...">
-        <button class="button button2" onclick="searchForConversation()">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
+      <section class="content">
+        <div class="button-container">
+          <h1>Search</h1>
+
+          <div class="search-controls">
+            <input
+              type="text"
+              class="search-bar"
+              id="searchInput"
+              placeholder="Search chats..."
+            />
+            <button class="button button2" onclick="searchForConversation()">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+
+          <button
+            class="create-conversation"
+            onclick="createConversation()"
+          >
+            <i class="fa-solid fa-plus"></i>
+            <span>New Conversation</span>
+          </button>
+        </div>
+
+        <div class="chat-logs-container">
+          <ul id="conversation-list-search"></ul>
+        </div>
       </section>
     </main>
 
-    <div class="content">
-      <button class="create-conversation create-conversation--search" onclick="createConversation()">
-          <i class="fa-solid fa-plus"></i>
-          <span>New Conversation</span>
-          </button>
-      <div class="chat-logs-container">
-        <ul id="conversation-list-search">
-          
-        </ul>
-      </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="../backend/supabase.js"></script>
     <script src="../backend/conversations.js"></script>
   </body>
 </html>
-
-

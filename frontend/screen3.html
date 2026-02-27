@@ -1,67 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Chat View</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
+
   <body>
-    <main>
-        <!--Sidebar-->
-        <aside class="sidebar">
-          <div class="logo-content">
-            <div class="logo">
-              <i class="fa-solid fa-comments"></i>
-              <div class="logo-name">Chat Manager</div>
-              
-            </div>
-            <ul class="navbar">
-              <li>
-                <a href="./index.html">
-                  <i class="fa-solid fa-house"></i>
-                  <span class="links-name">Home</span>
-                </a>
-              </li>
-              <li>
-                <a href="./screen2.html">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                  <span class="links-name">Search</span>
-                </a>
-              </li>
-              <li>
-                <a href="./screen3.html">
-                  <i class="fa-solid fa-clipboard"></i>
-                  <span class="links-name">Chat View</span>
-                </a>
-              </li>
-            </ul>
+    <main class="main-container">
+      <aside class="sidebar">
+        <div class="logo-content">
+          <div class="logo">
+            <i class="fa-solid fa-comments"></i>
+            <div class="logo-name">Chat Manager</div>
           </div>
+
+          <ul class="navbar">
+            <li>
+              <a href="./index.html">
+                <i class="fa-solid fa-house"></i>
+                <span class="links-name">Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="./screen2.html">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span class="links-name">Search</span>
+              </a>
+            </li>
+            <li>
+              <a href="./screen3.html" class="active">
+                <i class="fa-solid fa-clipboard"></i>
+                <span class="links-name">Chat View</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </aside>
+
+      <section class="content">
+        <div class="button-container">
+          <h1>Chat View</h1>
+
+          <button id="export-button" onclick="exportToPDF()">
+            Export Chat Logs
+            <i class="fa-solid fa-file-export"></i>
+          </button>
+        </div>
+
+        <div class="chat-logs-container">
+          <ul id="messages-list"></ul>
+        </div>
+      </section>
     </main>
 
-
-    <section class="content-message-page">
-      <div class="header-message-page">
-        <h1 class="chat-text">Chat View</h1>
-        <button id="export-button" onclick="exportToPDF()">Export Chat Logs 
-          <i class="fa-solid fa-file-export"></i>
-        </button>
-        
-      </div> 
-      
-      <div class="chat-logs-container">
-        <ul id="messages-list">
-          
-        </ul>
-      </div>
-
-     
-    </section>
-    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="../backend/supabase.js"></script>
     <script src="../backend/messages.js"></script>

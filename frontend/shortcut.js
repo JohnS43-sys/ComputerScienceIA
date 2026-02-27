@@ -19,7 +19,7 @@ function addNewPhrase() {
         const newPhraseItem = document.createElement('li');
         newPhraseItem.className = 'commonly-used-phrase';
         newPhraseItem.innerHTML = `
-            <span class="phrase-text">${newPhraseText.trim()}</span>
+            <span class="phrase-text" onclick="sendShortcut(this)">${newPhraseText.trim()}</span>
             <button class="edit-btn" onclick="editShortcut(this)">✏️</button>
             <button class="delete-btn" onclick="deleteShortcut(this)">🗑️</button>
         `;
@@ -36,3 +36,13 @@ function deleteShortcut(button) {
 }
 
 
+function sendShortcut(buttonOrElement) {
+  const phraseElement = buttonOrElement.closest(".commonly-used-phrase");
+  const phraseText = phraseElement.querySelector(".phrase-text").textContent.trim();
+
+  if (!phraseText) return;
+
+  window.saveMessage(phraseText);
+
+}
+window.sendShortcut = sendShortcut;

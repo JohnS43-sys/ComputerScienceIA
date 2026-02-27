@@ -14,8 +14,6 @@ window.startRecording = startRecording;
 recognition.onresult = (event) => {
   const transcript = event.results[0][0].transcript;
   document.getElementById("text-box").textContent = transcript;
-
-  // IMPORTANT — now this exists on window
   window.saveMessage(transcript);
 };
 

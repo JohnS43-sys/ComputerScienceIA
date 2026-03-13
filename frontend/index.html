@@ -70,6 +70,11 @@
             </div>
           </div>
 
+          <button class="load-conversation" onclick="logoutUser()">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Log Out</span>
+           x</button>
+
           </div>
 
 
@@ -107,9 +112,18 @@
         
         
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="../backend/supabase.js"></script>
-    <script src="voice-to-text.js"></script>
-    <script src="..//backend/conversations.js"></script>
-    <script src="./shortcut.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="../backend/supabase.js"></script>
+<script src="../backend/auth.js"></script>
+
+<script>
+  protectPage();
+</script>
+<script>
+  redirectIfLoggedIn();
+</script>
+
+<script src="voice-to-text.js"></script>
+<script src="../backend/conversations.js"></script>
+<script src="./shortcut.js"></script>
 </html>

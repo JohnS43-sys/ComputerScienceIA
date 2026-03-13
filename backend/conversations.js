@@ -9,50 +9,72 @@ function setCurrentConversation(id, title) {
 
 window.setCurrentConversation = setCurrentConversation;
 
-function createConversation() {
+async function createConversation() {
   const conversationName = prompt("Please enter the conversation name", "");
   if (!conversationName) return;
+
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    alert("You must be logged in.");
+    window.location.href = "auth.html";
+    return;
+  }
 
   const el = document.getElementsByClassName("current-conversation")[0];
   if (el) el.textContent = "Current Conversation: " + conversationName;
 
-  supabaseClient
+  const { data, error } = await supabaseClient
     .from("conversations")
-    .insert({ title: conversationName })
+    .insert({
+      title: conversationName,
+      user_id: user.id
+    })
     .select("*")
-    .single()
-    .then(({ data, error }) => {
-      console.log("CreateConversation() result:", data, error);
+    .single();
 
-      if (error) {
-        console.error("Error creating conversation:", error);
-        return;
-      }
+  console.log("CreateConversation() result:", data, error);
 
-      setCurrentConversation(data.id, data.title);
-      renderConversationList(); 
-    });
+  if (error) {
+    console.error("Error creating conversation:", error);
+    return;
+  }
+
+  setCurrentConversation(data.id, data.title);
+  renderConversationList();
 }
 
 window.createConversation = createConversation;
 
-function loadRecentConversation() {
-  supabaseClient
+async function loadRecentConversation() {
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    alert("You must be logged in.");
+    window.location.href = "auth.html";
+    return;
+  }
+
+  const { data, error } = await supabaseClient
     .from("conversations")
     .select("*")
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .limit(1)
-    .single()
-    .then(({ data, error }) => {
-      console.log("LoadConversation() result:", data, error);
+    .single();
 
-      if (error) {
-        console.error("Error loading conversations:", error);
-        return;
-      }
+  console.log("LoadConversation() result:", data, error);
 
-      if (data) setCurrentConversation(data.id, data.title);
-    });
+  if (error) {
+    console.error("Error loading conversations:", error);
+    return;
+  }
+
+  if (data) setCurrentConversation(data.id, data.title);
 }
 
 window.loadRecentConversation = loadRecentConversation;
@@ -71,9 +93,20 @@ async function renderConversationList() {
     return;
   }
 
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    alert("You must be logged in.");
+    window.location.href = "auth.html";
+    return;
+  }
+
   const { data, error } = await supabaseClient
     .from("conversations")
     .select("*")
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -105,7 +138,8 @@ async function renderConversationList() {
       const { error } = await supabaseClient
         .from("conversations")
         .update({ title: trimmed })
-        .eq("id", conversation.id);
+        .eq("id", conversation.id)
+        .eq("user_id", user.id);
 
       if (error) {
         console.error("Error updating conversation title:", error);
@@ -113,6 +147,7 @@ async function renderConversationList() {
       }
 
       listItem.childNodes[0].nodeValue = trimmed;
+
       if (sessionStorage.getItem("currentConversationId") === String(conversation.id)) {
         sessionStorage.setItem("currentConversationTitle", trimmed);
         const el = document.getElementsByClassName("current-conversation")[0];
@@ -136,7 +171,8 @@ async function renderConversationList() {
       const { error: msgErr } = await supabaseClient
         .from("messages")
         .delete()
-        .eq("conversation_id", convId);
+        .eq("conversation_id", convId)
+        .eq("user_id", user.id);
 
       if (msgErr) {
         console.error("Error deleting messages:", msgErr);
@@ -147,7 +183,8 @@ async function renderConversationList() {
       const { error: convErr } = await supabaseClient
         .from("conversations")
         .delete()
-        .eq("id", convId);
+        .eq("id", convId)
+        .eq("user_id", user.id);
 
       if (convErr) {
         console.error("Error deleting conversation:", convErr);
@@ -196,33 +233,50 @@ document.addEventListener("DOMContentLoaded", () => {
   renderConversationList();
 });
 
-
 async function searchForConversation() {
-  const query = document.querySelector('.search-bar').value;
+  const query = document.querySelector(".search-bar").value;
   const conversationList = getConversationListElement();
+
   if (!conversationList) {
     console.warn("No conversation list element found on this page.");
     return;
   }
+
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    alert("You must be logged in.");
+    window.location.href = "auth.html";
+    return;
+  }
+
   const { data, error } = await supabaseClient
     .from("conversations")
     .select("*")
+    .eq("user_id", user.id)
     .ilike("title", `%${query}%`)
     .order("created_at", { ascending: false });
+
   if (error) {
     console.error("Error searching conversations:", error);
     return;
-  } 
+  }
+
   conversationList.innerHTML = "";
+
   data.forEach((conversation) => {
     const listItem = document.createElement("li");
     listItem.className = "conversation-item";
     listItem.textContent = conversation.title;
+
     listItem.addEventListener("click", () => {
       sessionStorage.setItem("currentConversationId", String(conversation.id));
       sessionStorage.setItem("currentConversationTitle", conversation.title);
       window.location.href = "screen3.html";
-    },);
+    });
+
     conversationList.appendChild(listItem);
   });
 
@@ -234,3 +288,5 @@ async function searchForConversation() {
     conversationList.appendChild(noResultsItem);
   }
 }
+
+window.searchForConversation = searchForConversation;

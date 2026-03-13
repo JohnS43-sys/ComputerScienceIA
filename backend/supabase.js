@@ -3,21 +3,31 @@ window.supabaseClient = supabase.createClient(
   "sb_publishable_Rkeis3BxPAqF3WEPkvCxHA_3TFCmZpn"
 );
 
-function saveMessage(transcript) {
+async function saveMessage(transcript) {
   if (!window.currentConversationId) {
     alert("No conversation selected!");
     return;
   }
 
-  window.supabaseClient
+  const {
+    data: { user }
+  } = await window.supabaseClient.auth.getUser();
+
+  if (!user) {
+    alert("You must be logged in.");
+    window.location.href = "auth.html";
+    return;
+  }
+
+  const { error } = await window.supabaseClient
     .from("messages")
     .insert({
       content: transcript,
-      conversation_id: window.currentConversationId
-    })
-    .then(({ error }) => {
-      if (error) console.error(error);
+      conversation_id: window.currentConversationId,
+      user_id: user.id
     });
+
+  if (error) console.error(error);
 }
 
 window.saveMessage = saveMessage;

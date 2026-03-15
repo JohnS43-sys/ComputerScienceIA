@@ -75,8 +75,14 @@ async function protectPage() {
 
 async function redirectIfLoggedIn() {
   const {
-    data: { session }
-  } = await window.supabaseClient.auth.getSession();
+    data: { session },
+    error
+  } = await supabaseClient.auth.getSession();
+
+  if (error) {
+    console.error(error);
+    return;
+  }
 
   if (session) {
     window.location.href = "index.html";

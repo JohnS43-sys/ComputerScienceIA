@@ -11,7 +11,16 @@ window.setCurrentConversation = setCurrentConversation;
 
 function createConversation() {
   const conversationName = prompt("Please enter the conversation name", "");
-  if (!conversationName) return;
+
+  if (!conversationName || conversationName.trim() === "") {
+  alert("Conversation name cannot be empty");
+  return;
+  }
+
+  if (conversationName.length > 50) {
+  alert("Conversation name too long");
+  return;
+  }
 
   const el = document.getElementsByClassName("current-conversation")[0];
   if (el) el.textContent = "Current Conversation: " + conversationName;
@@ -97,8 +106,15 @@ async function renderConversationList() {
       event.preventDefault();
       event.stopPropagation();
 
-      const newTitle = prompt("Edit conversation title:", conversation.title);
-      if (!newTitle || newTitle.trim() === "") return;
+      if (!newTitle || newTitle.trim() === "") {
+      alert("Title cannot be empty");
+      return;
+      }
+
+      if (newTitle.length > 50) {
+      alert("Title too long");
+      return;
+    }
 
       const trimmed = newTitle.trim();
 

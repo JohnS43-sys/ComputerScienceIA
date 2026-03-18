@@ -3,6 +3,17 @@ async function signup() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
+  if(!validateEmail(email)){
+    alert("invalid email, try again");
+    return;
+  }
+
+  if (password.length < 6 ) {
+  alert("Password must be at least 6 characters");
+  return;
+  }
+
+
   const { error } = await supabaseClient
     .from("users")
     .insert({
@@ -44,5 +55,11 @@ function logout() {
   localStorage.removeItem("loggedIn");
   window.location.href = "auth.html";
 }
+
+function validateEmail(email) {
+  const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$/;
+  return pattern.test(email);
+}
+
 
 window.logout = logout;

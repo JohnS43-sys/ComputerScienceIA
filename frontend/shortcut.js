@@ -1,9 +1,10 @@
 const STORAGE_KEY = "commonPhrases";
+const MAX_PHRASES = 10;
 
 function getPhrasesFromDOM() {
   return Array.from(
     document.querySelectorAll("#phraseList .phrase-text")
-  ).map(el => el.textContent.trim());
+  ).map((el) => el.textContent.trim());
 }
 
 function savePhrases() {
@@ -11,23 +12,55 @@ function savePhrases() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(phrases));
 }
 
+function createPhraseItem(text) {
+  const li = document.createElement("li");
+  li.className = "commonly-used-phrase";
+
+  const span = document.createElement("span");
+  span.className = "phrase-text";
+  span.textContent = text;
+
+  const editButton = document.createElement("button");
+  editButton.className = "edit-btn";
+  editButton.type = "button";
+  editButton.textContent = "✏️";
+
+  const deleteButton = document.createElement("button");
+  deleteButton.className = "delete-btn";
+  deleteButton.type = "button";
+  deleteButton.textContent = "🗑️";
+
+  //Make the shortcut behave like the default shortcut
+  span.addEventListener("click", () => {
+    sendShortcut(span);
+  });
+
+  editButton.addEventListener("click", () => {
+    editShortcut(editButton);
+  });
+
+  deleteButton.addEventListener("click", () => {
+    deleteShortcut(deleteButton);
+  });
+
+  li.appendChild(span);
+  li.appendChild(editButton);
+  li.appendChild(deleteButton);
+
+  return li;
+}
+
 function renderPhrases(phrases) {
   const phraseList = document.getElementById("phraseList");
+  if (!phraseList) return;
+
   phraseList.innerHTML = "";
 
-  phrases.forEach(text => {
-    const li = document.createElement("li");
-    li.className = "commonly-used-phrase";
-
-    li.innerHTML = `
-      <span class="phrase-text" onclick="sendShortcut(this)">
-        ${text}
-      </span>
-      <button class="edit-btn" onclick="editShortcut(this)">✏️</button>
-      <button class="delete-btn" onclick="deleteShortcut(this)">🗑️</button>
-    `;
-
-    phraseList.appendChild(li);
+  phrases.forEach((text) => {
+    const trimmedText = text.trim();
+    if (trimmedText !== "") {
+      phraseList.appendChild(createPhraseItem(trimmedText));
+    }
   });
 }
 
@@ -42,30 +75,31 @@ function loadPhrases() {
       console.error("Error loading phrases:", e);
     }
   } else {
+    //Save the default phrase already written in the HTML
     savePhrases();
   }
 }
 
 function addNewPhrase() {
+  const currentPhrases = getPhrasesFromDOM();
+
+  if (currentPhrases.length >= MAX_PHRASES) {
+    alert("You can only store up to 10 shortcuts.");
+    return;
+  }
+
   const newPhraseText = prompt("Enter the new shortcut text:");
 
-  if (newPhraseText && newPhraseText.trim() !== "") {
-    const phraseList = document.getElementById("phraseList");
-
-    const newPhraseItem = document.createElement("li");
-    newPhraseItem.className = "commonly-used-phrase";
-
-    newPhraseItem.innerHTML = `
-      <span class="phrase-text" onclick="sendShortcut(this)">
-        ${newPhraseText.trim()}
-      </span>
-      <button class="edit-btn" onclick="editShortcut(this)">✏️</button>
-      <button class="delete-btn" onclick="deleteShortcut(this)">🗑️</button>
-    `;
-
-    phraseList.appendChild(newPhraseItem);
-    savePhrases();
+  if (!newPhraseText || newPhraseText.trim() === "") {
+    alert("Shortcut text cannot be empty.");
+    return;
   }
+
+  const trimmedText = newPhraseText.trim();
+
+  const phraseList = document.getElementById("phraseList");
+  phraseList.appendChild(createPhraseItem(trimmedText));
+  savePhrases();
 }
 
 function editShortcut(button) {
@@ -74,10 +108,13 @@ function editShortcut(button) {
 
   const newText = prompt("Edit the shortcut text:", phraseText.textContent);
 
-  if (newText && newText.trim() !== "") {
-    phraseText.textContent = newText.trim();
-    savePhrases();
+  if (!newText || newText.trim() === "") {
+    alert("Shortcut text cannot be empty.");
+    return;
   }
+
+  phraseText.textContent = newText.trim();
+  savePhrases();
 }
 
 function deleteShortcut(button) {
@@ -89,9 +126,24 @@ function deleteShortcut(button) {
 function sendShortcut(element) {
   const phraseText = element.textContent.trim();
 
-  if (phraseText && window.saveMessage) {
+  if (!phraseText) return;
+
+  //Show the shortcut in the same text box used by speech recognition
+  const textBox = document.getElementById("text-box");
+  if (textBox) {
+    textBox.textContent = phraseText;
+  }
+
+  //Save shortcut as a normal message
+  if (window.saveMessage) {
     window.saveMessage(phraseText);
   }
 }
+
+//Make functions global so inline HTML can still access them if needed
+window.addNewPhrase = addNewPhrase;
+window.editShortcut = editShortcut;
+window.deleteShortcut = deleteShortcut;
+window.sendShortcut = sendShortcut;
 
 document.addEventListener("DOMContentLoaded", loadPhrases);

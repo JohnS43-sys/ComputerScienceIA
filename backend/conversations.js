@@ -116,6 +116,7 @@ async function renderConversationList() {
       event.preventDefault();
       event.stopPropagation();
 
+      newTitle = prompt("Enter the new conversation title:", conversation.title);
       //data validation to ensure the new title is not empty
       if (!newTitle || newTitle.trim() === "") {
       alert("Title cannot be empty");
